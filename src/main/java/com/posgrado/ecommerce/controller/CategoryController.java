@@ -2,6 +2,7 @@ package com.posgrado.ecommerce.controller;
 
 import com.posgrado.ecommerce.entity.Category;
 import com.posgrado.ecommerce.service.CategoryService;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,5 +23,11 @@ public class CategoryController {
   public ResponseEntity<Category> getById(@PathVariable UUID id) {
     Category category = categoryService.getById(id);
     return ResponseEntity.status(HttpStatus.OK).body(category);
+  }
+
+  @GetMapping
+  public ResponseEntity<List<Category>> getAll() {
+    List<Category> categories = categoryService.getAll();
+    return ResponseEntity.status(HttpStatus.OK).body(categories);
   }
 }
