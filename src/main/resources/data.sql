@@ -3,6 +3,11 @@ INSERT IGNORE INTO categories (id, name, description) VALUES ('171503f8-d472-412
 INSERT IGNORE INTO categories (id, name, description) VALUES ('918bafdf-8cb4-4812-b195-3af53c835aff', 'SPORT', 'Mochillas deportivas');
 INSERT IGNORE INTO categories (id, name, description) VALUES ('6e8d7398-bb18-458d-9ded-86bd6d4ad587', 'WORK', 'Mochillas para el trabajo');
 
+INSERT IGNORE INTO roles (id, name, description) VALUES ('caf8c68d-e7db-4ea8-b856-16bdebd00ed8', 'ADMIN', 'Role admin');
+INSERT IGNORE INTO roles (id, name, description) VALUES ('a1b6d042-1be4-4907-9814-daf110a473f9', 'USER', 'Role user');
+
+INSERT IGNORE INTO users (id, first_name, last_name, email, password, address, role_id) VALUES ('51dbc9a4-1fff-4792-aa92-b23117212a71', 'Juan', 'Perez', 'juanperez@gmail.com', '12345678', 'El Alto', 'a1b6d042-1be4-4907-9814-daf110a473f9');
+
 INSERT IGNORE INTO products (id, name, description, image_url, price, stock, active, category_id) VALUES ('a0448696-54ac-4d15-b954-ba73c6d86755', 'Product A', 'Description del producto A','https://image.png',59.99,130,true,'4563eb53-8a93-4c2d-9415-27c6a010fda1');
 INSERT IGNORE INTO products (id, name, description, image_url, price, stock, active, category_id) VALUES ('f2b2f44a-b361-48b1-b86e-65fddf792e30', 'Mochilla Totto', 'Mochilla para niño totto','https://image.png',236.99,20,true,'171503f8-d472-412c-ba79-e545fc019b02');
 INSERT IGNORE INTO products (id, name, description, image_url, price, stock, active, category_id) VALUES ('1aab9d7c-1780-4db4-9451-da4c64f2ffbd', 'Mochilla Husky', 'Mochilla para trabajo color rojo para hombre','https://image.png',306.85,39,true,'6e8d7398-bb18-458d-9ded-86bd6d4ad587');
