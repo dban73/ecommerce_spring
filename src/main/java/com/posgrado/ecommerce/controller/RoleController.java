@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
@@ -19,13 +18,13 @@ public class RoleController {
   private RoleService roleService;
 
   @GetMapping("/name/{name}")
-  public ResponseEntity<Role> getByName(@PathVariable("name") String name){
+  public ResponseEntity<Role> getByName(@PathVariable("name") String name) {
     Role role = roleService.getByName(name);
     return ResponseEntity.ok(role);
   }
 
   @GetMapping
-  public ResponseEntity<List<Role>> getAll(){
+  public ResponseEntity<List<Role>> getAll() {
     return ResponseEntity.ok(roleService.getAll());
   }
 

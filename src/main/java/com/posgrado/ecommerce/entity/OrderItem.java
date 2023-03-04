@@ -18,11 +18,12 @@ import org.hibernate.annotations.Type;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name="order_items")
+@Table(name = "order_items")
 public class OrderItem {
+
   @Id
   @GeneratedValue
-  @Type(type="uuid-char")
+  @Type(type = "uuid-char")
   private UUID id;
   private Integer quantity;
 

@@ -19,12 +19,12 @@ import org.hibernate.annotations.Type;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
   @Id
   @GeneratedValue
-  @Type(type="uuid-char")
+  @Type(type = "uuid-char")
   private UUID id;
   private String firstName;
   private String lastName;

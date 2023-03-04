@@ -11,13 +11,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
   private UserRepository userRepository;
   private UserMapper userMapper;
+
   @Override
   public UserDTO getById(UUID id) {
-    User user = userRepository.findById(id).orElseThrow(()->new EntityNotFoundException("User", id));
+    User user = userRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("User", id));
     return userMapper.convertToUserDTO(user);
   }
 }

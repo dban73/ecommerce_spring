@@ -24,18 +24,18 @@ import org.hibernate.annotations.Type;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
 
   @Id
   @GeneratedValue
-  @Type(type="uuid-char")
+  @Type(type = "uuid-char")
   private UUID id;
-  private LocalDateTime date;
+  private LocalDateTime date = LocalDateTime.now();
 
   private String comment;
   @Enumerated(value = EnumType.STRING)
-  private OrderState state;
+  private OrderState state = OrderState.PENDING;
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;

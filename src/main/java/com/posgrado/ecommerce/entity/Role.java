@@ -16,12 +16,12 @@ import org.hibernate.annotations.Type;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
   @Id
   @GeneratedValue
-  @Type(type="uuid-char")
+  @Type(type = "uuid-char")
   private UUID id;
   private String name;
   private String description;

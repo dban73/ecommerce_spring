@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, UUID> {
+
   Page<Product> findByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
 
 }
