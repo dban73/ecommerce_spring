@@ -11,13 +11,23 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+  private static final String[] WHITE_LIST = {
+      "/auth/**",
+      "/v2/api-docs",
+      "/swagger-ui/index.html",
+      "/swagger-resources/**",
+      "/webjars/**",
+      "/configuration/**"
+  };
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    http.authorizeRequests((authz) -> { authz
-        .antMatchers("/auth/**").permitAll()
-        .anyRequest().authenticated();
+    http.authorizeRequests((authz) -> {
+      authz
+          .antMatchers(WHITE_LIST).permitAll()
+          .anyRequest().authenticated();
     });
     return http.build();
   }

@@ -6,4 +6,8 @@ public interface ConfirmationTokenService {
 
   ConfirmationToken save(ConfirmationToken confirmationToken);
 
+  ConfirmationToken getByToken(String token);
+
+  void setConfirmedAt(ConfirmationToken confirmationToken);
+
 }
