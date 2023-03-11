@@ -26,4 +26,7 @@ public class Role {
   private String name;
   private String description;
 
+  public Role(String name) {
+    this.name = name;
+  }
 }

@@ -7,7 +7,6 @@ import com.posgrado.ecommerce.mapper.UserMapper;
 import com.posgrado.ecommerce.repository.UserRepository;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,10 +15,6 @@ public class UserServiceImpl implements UserService {
 
   private UserRepository userRepository;
   private UserMapper userMapper;
-
-  private PasswordEncoder passwordEncoder;
-
-  private ConfirmationTokenService confirmationTokenService;
 
   @Override
   public UserDTO getById(UUID id) {

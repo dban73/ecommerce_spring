@@ -1,7 +1,9 @@
 package com.posgrado.ecommerce.controller;
 
+import com.posgrado.ecommerce.dto.AuthenticationRequest;
+import com.posgrado.ecommerce.dto.AuthenticationResponse;
 import com.posgrado.ecommerce.dto.RegistrationRequest;
-import com.posgrado.ecommerce.service.EmailService;
+import com.posgrado.ecommerce.service.AuthenticationService;
 import com.posgrado.ecommerce.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
   private RegistrationService registrationService;
-
-  private EmailService emailService;
+  private AuthenticationService authenticationService;
 
   @PostMapping("/register")
   public ResponseEntity<String> register(@RequestBody RegistrationRequest request) {
@@ -32,6 +33,13 @@ public class AuthController {
   public ResponseEntity<String> confirm(@RequestParam String token) {
     String message = registrationService.confirm(token);
     return ResponseEntity.ok(message);
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity<AuthenticationResponse> authenticate(
+      @RequestBody AuthenticationRequest request) {
+    AuthenticationResponse response = authenticationService.authenticate(request);
+    return ResponseEntity.ok(response);
   }
 
 }

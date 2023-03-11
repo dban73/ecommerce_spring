@@ -2,6 +2,7 @@ package com.posgrado.ecommerce.service;
 
 import com.posgrado.ecommerce.dto.RegistrationRequest;
 import com.posgrado.ecommerce.entity.ConfirmationToken;
+import com.posgrado.ecommerce.entity.Role;
 import com.posgrado.ecommerce.entity.User;
 import com.posgrado.ecommerce.exception.EmailAlreadyTakenException;
 import com.posgrado.ecommerce.util.HtmlGenerator;
@@ -22,6 +23,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
   private EmailService emailService;
 
+  private RoleService roleService;
+
   @Override
   public String register(RegistrationRequest dto) {
     boolean emailExists = userService.existByEmail(dto.getEmail());
@@ -36,6 +39,10 @@ public class RegistrationServiceImpl implements RegistrationService {
     user.setEmail(dto.getEmail());
     String encodedPassword = passwordEncoder.encode(dto.getPassword());
     user.setPassword(encodedPassword);
+
+    Role defaultRole = roleService.getByName("USER");
+    user.setRole(defaultRole);
+
     userService.save(user);
 
     String token = UUID.randomUUID().toString();
