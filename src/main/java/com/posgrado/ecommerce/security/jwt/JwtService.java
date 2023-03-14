@@ -17,7 +17,7 @@ public class JwtService {
         .withClaim("id", user.getId().toString())
         .withClaim("role", user.getRole().getName())
         .withIssuedAt(new Date())
-        .withExpiresAt(new Date(System.currentTimeMillis() + 15 * 60 * 1000))
+        .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
         .sign(Algorithm.HMAC256("myS3creyK3y"));
   }
 

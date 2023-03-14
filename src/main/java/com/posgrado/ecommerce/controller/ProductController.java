@@ -5,6 +5,7 @@ import com.posgrado.ecommerce.dto.ProductDTO;
 import com.posgrado.ecommerce.entity.Product;
 import com.posgrado.ecommerce.service.ProductService;
 import java.util.UUID;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +29,7 @@ public class ProductController {
   private ProductService productService;
 
   @PostMapping
-  public ResponseEntity<Product> save(@RequestBody ProductDTO productDTO) {
+  public ResponseEntity<Product> save(@Valid @RequestBody ProductDTO productDTO) {
     Product product = productService.save(productDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(product);
   }
