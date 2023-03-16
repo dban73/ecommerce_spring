@@ -4,6 +4,8 @@ import com.posgrado.ecommerce.dto.PageDTO;
 import com.posgrado.ecommerce.dto.ProductDTO;
 import com.posgrado.ecommerce.entity.Product;
 import com.posgrado.ecommerce.service.ProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.UUID;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,26 +22,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
+@Api(tags = "Product")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
   private ProductService productService;
-
+  @ApiOperation("Add product")
   @PostMapping
   public ResponseEntity<Product> save(@Valid @RequestBody ProductDTO productDTO) {
     Product product = productService.save(productDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(product);
   }
-
+  @ApiOperation("getProduct by id")
   @GetMapping("/{id}")
   public ResponseEntity<Product> getById(@PathVariable UUID id) {
     Product product = productService.getById(id);
     return ResponseEntity.status(HttpStatus.OK).body(product);
   }
-
+  @ApiIgnore
   @GetMapping("/pageable")
   public ResponseEntity<Page<Product>> getById(
       @RequestParam(value = "page", defaultValue = "0") int page,
@@ -47,7 +51,7 @@ public class ProductController {
     Pageable pageable = PageRequest.of(page, size);
     return ResponseEntity.status(HttpStatus.OK).body(productService.getProductsPageable(pageable));
   }
-
+  @ApiOperation("Get filtered products with pagination")
   @GetMapping
   public ResponseEntity<PageDTO<Product>> getFilteredProducts(
       @RequestParam(required = false) Double minPrice,

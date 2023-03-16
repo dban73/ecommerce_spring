@@ -3,11 +3,13 @@ package com.posgrado.ecommerce.service;
 import com.posgrado.ecommerce.dto.OrderDTO;
 import com.posgrado.ecommerce.entity.Order;
 import com.posgrado.ecommerce.entity.OrderItem;
+import com.posgrado.ecommerce.entity.User;
 import com.posgrado.ecommerce.exception.EntityNotFoundException;
 import com.posgrado.ecommerce.repository.OrderRepository;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -30,6 +32,8 @@ public class OrderServiceImpl implements OrderService {
       return item;
     }).toList();
     order.setItems(items);
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    order.setUser(user);
     Order orderSaved = orderRepository.save(order);
     return orderSaved.getId().toString();
   }
