@@ -7,6 +7,7 @@ import com.posgrado.ecommerce.entity.Product;
 import com.posgrado.ecommerce.exception.EntityNotFoundException;
 import com.posgrado.ecommerce.mapper.ProductMapper;
 import com.posgrado.ecommerce.repository.ProductRepository;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,11 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  public List<Product> getAllByCategory(UUID categoryId) {
+    return productRepository.findAllByCategoryId(categoryId);
+  }
+
+  @Override
   public Page<Product> getProductsPageable(Pageable pageable) {
     return productRepository.findAll(pageable);
   }
@@ -45,5 +51,18 @@ public class ProductServiceImpl implements ProductService {
   public PageDTO<Product> getFilteredProducts(Double minPrice, Double maxPrice, Pageable pageable) {
     Page<Product> page = productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
     return productMapper.convertToPageDTO(page);
+  }
+
+  @Override
+  public Product updateProduct(UUID productId, ProductDTO productDTO) {
+    Product productTarget = productRepository.findById(productId)
+        .orElseThrow(() -> new EntityNotFoundException("Product", productId));
+    productTarget.setName(productDTO.getName());
+    productTarget.setDescription(productDTO.getDescription());
+    productTarget.setPrice(productDTO.getPrice());
+    productTarget.setImageUrl(productDTO.getImageUrl());
+    productTarget.setStock(productDTO.getStock());
+    productTarget.setActive(productDTO.isActive());
+    return productRepository.save(productTarget);
   }
 }

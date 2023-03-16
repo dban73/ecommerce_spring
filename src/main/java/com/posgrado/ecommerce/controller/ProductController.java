@@ -6,6 +6,7 @@ import com.posgrado.ecommerce.entity.Product;
 import com.posgrado.ecommerce.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +46,13 @@ public class ProductController {
   public ResponseEntity<Product> getById(@PathVariable UUID id) {
     Product product = productService.getById(id);
     return ResponseEntity.status(HttpStatus.OK).body(product);
+  }
+
+  @ApiOperation("Get Products by category Id")
+  @GetMapping("/category/{categoryId}")
+  public ResponseEntity<List<Product>> getAllByCategoryId(@PathVariable UUID categoryId) {
+    List<Product> products = productService.getAllByCategory(categoryId);
+    return ResponseEntity.ok(products);
   }
 
   @ApiIgnore
@@ -77,4 +86,10 @@ public class ProductController {
     return ResponseEntity.status(HttpStatus.OK).body(filteredPage);
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Product> updateProduct(@PathVariable(value = "id") UUID productId,
+      @RequestBody ProductDTO productTarget) {
+    Product product = productService.updateProduct(productId, productTarget);
+    return ResponseEntity.ok(product);
+  }
 }

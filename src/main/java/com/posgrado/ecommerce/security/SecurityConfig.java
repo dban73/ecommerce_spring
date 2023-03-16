@@ -38,6 +38,7 @@ public class SecurityConfig {
           .antMatchers(HttpMethod.GET, "/products/**").permitAll()
           .antMatchers(HttpMethod.POST, "/orders").hasAuthority("USER")
           .antMatchers(HttpMethod.POST, "/products").hasAuthority("ADMIN")
+          .antMatchers(HttpMethod.PUT, "/products/**").hasAuthority("ADMIN")
           .antMatchers(HttpMethod.GET, "/roles/**").hasAuthority("ADMIN")
           .antMatchers(HttpMethod.GET, "/users/**").hasAuthority("ADMIN")
           .antMatchers(HttpMethod.GET, "/orders/**").hasAuthority("ADMIN")
