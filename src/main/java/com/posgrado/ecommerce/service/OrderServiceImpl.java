@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     order.setUser(user);
     Order orderSaved = orderRepository.save(order);
-    return new OrderResponse("A new order with id: "+orderSaved.getId().toString()
+    return new OrderResponse("A new order with id: " + orderSaved.getId().toString()
         + " was created.");
   }
 
