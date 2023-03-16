@@ -1,6 +1,7 @@
 package com.posgrado.ecommerce.config;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +36,8 @@ public class SwaggerConfig {
         .paths(PathSelectors.any())
         .build()
         .apiInfo(apiInfo())
-        .securitySchemes(Arrays.asList(securityScheme()))
-        .securityContexts(Arrays.asList(securityContext()));
+        .securitySchemes(List.of(securityScheme()))
+        .securityContexts(Collections.singletonList(securityContext()));
   }
 
   private ApiInfo apiInfo() {
@@ -47,18 +48,21 @@ public class SwaggerConfig {
         .contact(new Contact(API_OWNER, OWNER_WEB_SITE, OWNER_EMAIL))
         .build();
   }
-  private ApiKey securityScheme(){
-    return new ApiKey("JWT","Authorization","header");
+
+  private ApiKey securityScheme() {
+    return new ApiKey("JWT", "Authorization", "header");
   }
-  private SecurityContext securityContext(){
+
+  private SecurityContext securityContext() {
     return SecurityContext.builder()
         .securityReferences(securityReferenceList())
         .forPaths(PathSelectors.ant("/api/v1/auth/**").negate())
         .build();
   }
-  private List<SecurityReference> securityReferenceList(){
-    AuthorizationScope authorizationScope = new AuthorizationScope("global","Access everything");
+
+  private List<SecurityReference> securityReferenceList() {
+    AuthorizationScope authorizationScope = new AuthorizationScope("global", "Access everything");
     AuthorizationScope[] authorizationScopes = new AuthorizationScope[]{authorizationScope};
-    return Arrays.asList(new SecurityReference("JWT",authorizationScopes));
+    return List.of(new SecurityReference("JWT", authorizationScopes));
   }
 }

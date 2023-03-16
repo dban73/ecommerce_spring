@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 @Api(tags = "Authentication")
 @AllArgsConstructor
 @RestController
@@ -31,12 +32,14 @@ public class AuthController {
     String token = registrationService.register(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(token);
   }
+
   @ApiOperation("Config account")
   @GetMapping("/confirm")
   public ResponseEntity<String> confirm(@RequestParam String token) {
     String message = registrationService.confirm(token);
     return ResponseEntity.ok(message);
   }
+
   @ApiOperation("Authentication user")
   @PostMapping("/login")
   public ResponseEntity<AuthenticationResponse> authenticate(

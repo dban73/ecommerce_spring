@@ -1,6 +1,7 @@
 package com.posgrado.ecommerce.controller;
 
 import com.posgrado.ecommerce.dto.OrderDTO;
+import com.posgrado.ecommerce.dto.OrderResponse;
 import com.posgrado.ecommerce.service.OrderService;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,9 @@ public class OrderController {
   private OrderService orderService;
 
   @PostMapping
-  public ResponseEntity<String> save(@RequestBody OrderDTO orderDTO) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(orderService.save(orderDTO));
+  public ResponseEntity<OrderResponse> save(@RequestBody OrderDTO orderDTO) {
+    OrderResponse response = orderService.save(orderDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
   /*@GetMapping("/total/{id}")

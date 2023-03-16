@@ -31,18 +31,21 @@ import springfox.documentation.annotations.ApiIgnore;
 public class ProductController {
 
   private ProductService productService;
+
   @ApiOperation("Add product")
   @PostMapping
   public ResponseEntity<Product> save(@Valid @RequestBody ProductDTO productDTO) {
     Product product = productService.save(productDTO);
     return ResponseEntity.status(HttpStatus.CREATED).body(product);
   }
+
   @ApiOperation("getProduct by id")
   @GetMapping("/{id}")
   public ResponseEntity<Product> getById(@PathVariable UUID id) {
     Product product = productService.getById(id);
     return ResponseEntity.status(HttpStatus.OK).body(product);
   }
+
   @ApiIgnore
   @GetMapping("/pageable")
   public ResponseEntity<Page<Product>> getById(
@@ -51,6 +54,7 @@ public class ProductController {
     Pageable pageable = PageRequest.of(page, size);
     return ResponseEntity.status(HttpStatus.OK).body(productService.getProductsPageable(pageable));
   }
+
   @ApiOperation("Get filtered products with pagination")
   @GetMapping
   public ResponseEntity<PageDTO<Product>> getFilteredProducts(

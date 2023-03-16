@@ -1,6 +1,7 @@
 package com.posgrado.ecommerce.service;
 
 import com.posgrado.ecommerce.dto.OrderDTO;
+import com.posgrado.ecommerce.dto.OrderResponse;
 import com.posgrado.ecommerce.entity.Order;
 import com.posgrado.ecommerce.entity.OrderItem;
 import com.posgrado.ecommerce.entity.User;
@@ -21,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
   private ProductService productService;
 
   @Override
-  public String save(OrderDTO dto) {
+  public OrderResponse save(OrderDTO dto) {
     Order order = new Order();
     order.setComment(dto.getComment());
     List<OrderItem> items = dto.getItems().stream().map(itemDTO -> {
@@ -35,7 +36,8 @@ public class OrderServiceImpl implements OrderService {
     User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     order.setUser(user);
     Order orderSaved = orderRepository.save(order);
-    return orderSaved.getId().toString();
+    return new OrderResponse("A new order with id: "+orderSaved.getId().toString()
+        + " was created.");
   }
 
   @Override
