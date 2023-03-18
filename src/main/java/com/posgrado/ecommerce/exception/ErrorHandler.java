@@ -55,4 +55,10 @@ public class ErrorHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
   }
 
+  @ExceptionHandler(NameRoleAlreadyTakenException.class)
+  public ResponseEntity<ErrorResponse> handleNameRoleAlreadyTakenException(Exception ex) {
+    HttpStatus status = HttpStatus.CONFLICT;
+    ErrorResponse response = new ErrorResponse(status.value(), status.name(), ex.getMessage());
+    return ResponseEntity.status(status).body(response);
+  }
 }

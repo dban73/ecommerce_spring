@@ -9,4 +9,7 @@ public interface RoleService {
 
   List<Role> getAll();
 
+  Role save(Role role);
+
+  boolean existByNameRole(String nameRole);
 }

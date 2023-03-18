@@ -1,6 +1,7 @@
 package com.posgrado.ecommerce.repository;
 
 import com.posgrado.ecommerce.entity.Role;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, UUID> {
 
-  Role findByName(String name);
+  Optional<Role> findByName(String name);
 
   /*@Query(value="SELECT * FROM roles WHERE name = ?1", nativeQuery = true)
   Role findRoleByName(String name);

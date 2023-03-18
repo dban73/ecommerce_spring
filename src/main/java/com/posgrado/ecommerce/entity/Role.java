@@ -1,10 +1,12 @@
 package com.posgrado.ecommerce.entity;
 
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,10 @@ public class Role {
   @GeneratedValue
   @Type(type = "uuid-char")
   private UUID id;
+  @NotBlank(message = "{role.name.not-blank}")
+  @Column(unique = true)
   private String name;
+  @NotBlank(message = "{role.description.not-blank}")
   private String description;
 
   public Role(String name) {
